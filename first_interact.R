@@ -14,7 +14,7 @@ cces16 <- cces16 %>%
   mutate(kids = car::recode(child18, "1=1; else =0")) %>% 
   mutate(att = car::recode(pew_churatd, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1; else = NA"))
 
-  
+## Using Abortion Scale ####  
 
 male <- cces16 %>% 
   filter(gender ==1)
@@ -47,4 +47,147 @@ gg2 +
   scale_fill_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
   theme(legend.position = c(.15,.75)) +
   ggsave("D://abortion40/interact_age_pid_white_female.png", width = 12)
+
+### Matter of Choice ####
+
+male <- cces16 %>% 
+  filter(gender ==1)
+
+gg <- glm(ab1 ~ age*pid*white + educ + kids + att, data = male, family = "binomial")
+
+gg2 <- interact_plot(gg, pred= age, modx = pid, mod2 = white, int.width = .76, interval = TRUE, modx.values = c(1,2,3), mod2.values = c(1,0),  modx.labels = c("Democrat", "Republican", "Independent"), mod2.labels = c("Non-White", "White")) 
+
+ab1m <- gg2 +
+  labs(x = "Age", y = "<-- Less In Favor : More In Favor -->", title = "Matter of Choice", caption = "Data: CCES 2016", subtitle = "Among Men") +
+  theme_gg("Slabo 27px") +
+  # scale_x_continuous(limits = c(1,6.1), breaks = c(1,2,3,4,5,6), labels = c("Never", "Seldom", "Yearly", "Monthly", "Weekly", "Weekly+")) +
+  scale_color_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  scale_fill_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  theme(legend.position = c(.15,.35)) +
+  ggsave("D://abortion40/interact_age_pid_white_male_ab1.png", width = 12)
+
+female <- cces16 %>% 
+  filter(gender ==2)
+
+gg <- glm(ab1 ~ age*pid*white + educ + kids + att, data = female, family = "binomial")
+
+gg2 <- interact_plot(gg, pred= age, modx = pid, mod2 = white, int.width = .76, interval = TRUE, modx.values = c(1,2,3), mod2.values = c(1,0),  modx.labels = c("Democrat", "Republican", "Independent"), mod2.labels = c("Non-White", "White")) 
+
+ab1f <- gg2 +
+  labs(x = "Age", y = "<-- Less In Favor : More In Favor -->", title = "Matter of Choice", caption = "Data: CCES 2016", subtitle = "Among Women") +
+  theme_gg("Slabo 27px") +
+  # scale_x_continuous(limits = c(1,6.1), breaks = c(1,2,3,4,5,6), labels = c("Never", "Seldom", "Yearly", "Monthly", "Weekly", "Weekly+")) +
+  scale_color_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  scale_fill_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  theme(legend.position = c(.15,.25)) +
+  ggsave("D://abortion40/interact_age_pid_white_female_ab1.png", width = 12)
+
+## Rape, Incest, Life of Mother ####
+
+cces16 <- cces16 %>% 
+  mutate(ab6 = car::recode(CC16_332b, "1=1; else =0"))
+
+
+male <- cces16 %>% 
+  filter(gender ==1)
+
+gg <- glm(ab6 ~ age*pid*white + educ + kids + att, data = male, family = "binomial")
+
+gg2 <- interact_plot(gg, pred= age, modx = pid, mod2 = white, int.width = .76, interval = TRUE, modx.values = c(1,2,3), mod2.values = c(1,0),  modx.labels = c("Democrat", "Republican", "Independent"), mod2.labels = c("Non-White", "White")) 
+
+ab6m <- gg2 +
+  labs(x = "Age", y = "<-- Less In Favor : More In Favor -->", title = "Prohibit After 20 Weeks", caption = "Data: CCES 2016", subtitle = "Among Men") +
+  theme_gg("Slabo 27px") +
+  # scale_x_continuous(limits = c(1,6.1), breaks = c(1,2,3,4,5,6), labels = c("Never", "Seldom", "Yearly", "Monthly", "Weekly", "Weekly+")) +
+  scale_color_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  scale_fill_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  theme(legend.position = c(.15,.15)) +
+  ggsave("D://abortion40/interact_age_pid_white_male_ab6.png", width = 12)
+
+female <- cces16 %>% 
+  filter(gender ==2)
+
+gg <- glm(ab6 ~ age*pid*white + educ + kids + att, data = female, family = "binomial")
+
+gg2 <- interact_plot(gg, pred= age, modx = pid, mod2 = white, int.width = .76, interval = TRUE, modx.values = c(1,2,3), mod2.values = c(1,0),  modx.labels = c("Democrat", "Republican", "Independent"), mod2.labels = c("Non-White", "White")) 
+
+ab6f <- gg2 +
+  labs(x = "Age", y = "<-- Less In Favor : More In Favor -->", title = "Prohibit After 20 Weeks", caption = "Data: CCES 2016", subtitle = "Among Women") +
+  theme_gg("Slabo 27px") +
+  # scale_x_continuous(limits = c(1,6.1), breaks = c(1,2,3,4,5,6), labels = c("Never", "Seldom", "Yearly", "Monthly", "Weekly", "Weekly+")) +
+  scale_color_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  scale_fill_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  theme(legend.position = c(.15,.25)) +
+  ggsave("D://abortion40/interact_age_pid_white_female_ab6.png", width = 12)
+
+## Late Term ####
+
+male <- cces16 %>% 
+  filter(gender ==1)
+
+gg <- glm(ab2 ~ age*pid*white + educ + kids + att, data = male, family = "binomial")
+
+gg2 <- interact_plot(gg, pred= age, modx = pid, mod2 = white, int.width = .76, interval = TRUE, modx.values = c(1,2,3), mod2.values = c(1,0),  modx.labels = c("Democrat", "Republican", "Independent"), mod2.labels = c("Non-White", "White")) 
+
+ab2m <- gg2 +
+  labs(x = "Age", y = "<-- Less In Favor : More In Favor -->", title = "Prohibit After 20 Weeks", caption = "Data: CCES 2016", subtitle = "Among Men") +
+  theme_gg("Slabo 27px") +
+  # scale_x_continuous(limits = c(1,6.1), breaks = c(1,2,3,4,5,6), labels = c("Never", "Seldom", "Yearly", "Monthly", "Weekly", "Weekly+")) +
+  scale_color_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  scale_fill_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  theme(legend.position = c(.15,.75)) +
+  ggsave("D://abortion40/interact_age_pid_white_male_ab2.png", width = 12)
+
+female <- cces16 %>% 
+  filter(gender ==2)
+
+gg <- glm(ab2 ~ age*pid*white + educ + kids + att, data = female, family = "binomial")
+
+gg2 <- interact_plot(gg, pred= age, modx = pid, mod2 = white, int.width = .76, interval = TRUE, modx.values = c(1,2,3), mod2.values = c(1,0),  modx.labels = c("Democrat", "Republican", "Independent"), mod2.labels = c("Non-White", "White")) 
+
+ab2f <- gg2 +
+  labs(x = "Age", y = "<-- Less In Favor : More In Favor -->", title = "Prohibit After 20 Weeks", caption = "Data: CCES 2016", subtitle = "Among Women") +
+  theme_gg("Slabo 27px") +
+  # scale_x_continuous(limits = c(1,6.1), breaks = c(1,2,3,4,5,6), labels = c("Never", "Seldom", "Yearly", "Monthly", "Weekly", "Weekly+")) +
+  scale_color_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  scale_fill_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  theme(legend.position = c(.15,.85)) +
+  ggsave("D://abortion40/interact_age_pid_white_female_ab2.png", width = 12)
+
+
+
+
+
+
+male <- cces16 %>% 
+  filter(gender ==1)
+
+gg <- glm(ab3 ~ age*pid*white + educ + kids + att, data = male, family = "binomial")
+
+gg2 <- interact_plot(gg, pred= age, modx = pid, mod2 = white, int.width = .76, interval = TRUE, modx.values = c(1,2,3), mod2.values = c(1,0),  modx.labels = c("Democrat", "Republican", "Independent"), mod2.labels = c("Non-White", "White")) 
+
+ab3m <- gg2 +
+  labs(x = "Age", y = "<-- Less In Favor : More In Favor -->", title = "Prohibit After 20 Weeks", caption = "Data: CCES 2016", subtitle = "Among Men") +
+  theme_gg("Slabo 27px") +
+  # scale_x_continuous(limits = c(1,6.1), breaks = c(1,2,3,4,5,6), labels = c("Never", "Seldom", "Yearly", "Monthly", "Weekly", "Weekly+")) +
+  scale_color_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  scale_fill_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  theme(legend.position = c(.15,.75)) +
+  ggsave("D://abortion40/interact_age_pid_white_male_ab3.png", width = 12)
+
+female <- cces16 %>% 
+  filter(gender ==2)
+
+gg <- glm(ab3 ~ age*pid*white + educ + kids + att, data = female, family = "binomial")
+
+gg2 <- interact_plot(gg, pred= age, modx = pid, mod2 = white, int.width = .76, interval = TRUE, modx.values = c(1,2,3), mod2.values = c(1,0),  modx.labels = c("Democrat", "Republican", "Independent"), mod2.labels = c("Non-White", "White")) 
+
+ab3f <- gg2 +
+  labs(x = "Age", y = "<-- Less In Favor : More In Favor -->", title = "Prohibit After 20 Weeks", caption = "Data: CCES 2016", subtitle = "Among Women") +
+  theme_gg("Slabo 27px") +
+  # scale_x_continuous(limits = c(1,6.1), breaks = c(1,2,3,4,5,6), labels = c("Never", "Seldom", "Yearly", "Monthly", "Weekly", "Weekly+")) +
+  scale_color_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  scale_fill_manual(values = c("dodgerblue3", "firebrick3", "azure3")) +
+  theme(legend.position = c(.15,.85)) +
+  ggsave("D://abortion40/interact_age_pid_white_female_ab3.png", width = 12)
 
