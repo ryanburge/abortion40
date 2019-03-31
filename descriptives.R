@@ -20,7 +20,7 @@ aaa1 <- cces16 %>%
   mutate(pid3 = as.numeric(pid3)) %>% 
   mutate(pid3 = car::recode(pid3, "1 = 'Democrat'; 2 = 'Republican'; 3 = 'Independent'; else = NA")) %>% 
   mutate(gender = as.numeric(gender)) %>% 
-  mutate(gender = car::recode(gender, "1= 'Male'; 2 = 'Female'")) %>% 
+  mutate(gender = car::recode(gender, "1= 'Men'; 2 = 'Women'")) %>% 
   mutate(issue = "Matter of Choice")
 
 aaa2 <- cces16 %>% 
@@ -33,7 +33,7 @@ aaa2 <- cces16 %>%
   mutate(pid3 = as.numeric(pid3)) %>% 
   mutate(pid3 = car::recode(pid3, "1 = 'Democrat'; 2 = 'Republican'; 3 = 'Independent'; else = NA")) %>% 
   mutate(gender = as.numeric(gender)) %>% 
-  mutate(gender = car::recode(gender, "1= 'Male'; 2 = 'Female'")) %>% 
+  mutate(gender = car::recode(gender, "1= 'Men'; 2 = 'Women'")) %>% 
   mutate(issue = "Prohibit After\n20 Weeks")
 
 aaa3 <- cces16 %>% 
@@ -46,7 +46,7 @@ aaa3 <- cces16 %>%
   mutate(pid3 = as.numeric(pid3)) %>% 
   mutate(pid3 = car::recode(pid3, "1 = 'Democrat'; 2 = 'Republican'; 3 = 'Independent'; else = NA")) %>% 
   mutate(gender = as.numeric(gender)) %>% 
-  mutate(gender = car::recode(gender, "1= 'Male'; 2 = 'Female'")) %>% 
+  mutate(gender = car::recode(gender, "1= 'Men'; 2 = 'Women'")) %>% 
   mutate(issue = "Employers Deny\nAbortion Ins. Coverage")
 
 aaa4 <- cces16 %>% 
@@ -59,7 +59,7 @@ aaa4 <- cces16 %>%
   mutate(pid3 = as.numeric(pid3)) %>% 
   mutate(pid3 = car::recode(pid3, "1 = 'Democrat'; 2 = 'Republican'; 3 = 'Independent'; else = NA")) %>% 
   mutate(gender = as.numeric(gender)) %>% 
-  mutate(gender = car::recode(gender, "1= 'Male'; 2 = 'Female'")) %>% 
+  mutate(gender = car::recode(gender, "1= 'Men'; 2 = 'Women'")) %>% 
   mutate(issue = "Prohibit Federal\nFunds")
 
 aaa5 <- cces16 %>% 
@@ -72,7 +72,7 @@ aaa5 <- cces16 %>%
   mutate(pid3 = as.numeric(pid3)) %>% 
   mutate(pid3 = car::recode(pid3, "1 = 'Democrat'; 2 = 'Republican'; 3 = 'Independent'; else = NA")) %>% 
   mutate(gender = as.numeric(gender)) %>% 
-  mutate(gender = car::recode(gender, "1= 'Male'; 2 = 'Female'")) %>% 
+  mutate(gender = car::recode(gender, "1= 'Men'; 2 = 'Women'")) %>% 
   mutate(issue = "Make Completely\nIllegal")
 
 aaa6 <- cces16 %>% 
@@ -86,20 +86,20 @@ aaa6 <- cces16 %>%
   mutate(pid3 = as.numeric(pid3)) %>% 
   mutate(pid3 = car::recode(pid3, "1 = 'Democrat'; 2 = 'Republican'; 3 = 'Independent'; else = NA")) %>% 
   mutate(gender = as.numeric(gender)) %>% 
-  mutate(gender = car::recode(gender, "1= 'Male'; 2 = 'Female'")) %>% 
+  mutate(gender = car::recode(gender, "1= 'Men'; 2 = 'Women'")) %>% 
   mutate(issue = "Only for Rape,\nIncest, Life of Mother")
 
 graph <- bind_df("aaa")
 
 
 graph %>%
-  filter(gender == "Male") %>% 
+  filter(gender == "Men") %>% 
   ggplot(., aes(y=mean, x= age, color = pid3)) +
   geom_point() +
   geom_smooth(show.legend = FALSE) +
   theme_gg("Slabo 27px") +
   facet_wrap(~ issue, ncol =3) +
-  labs(title = "Support for Abortion Policies", subtitle = "Among Males", x = "", y = "", caption = "Data: CCES 2016") +
+  labs(title = "Support for Abortion Policies", subtitle = "Among Men", x = "", y = "", caption = "Data: CCES 2016") +
   scale_y_continuous(labels = percent) +
   scale_color_manual(values = c("dodgerblue3", "azure4", "firebrick3")) +
   scale_fill_manual(values = c("dodgerblue3", "azure4", "firebrick3")) +
@@ -109,13 +109,13 @@ graph %>%
 
 
 graph %>%
-  filter(gender == "Female") %>% 
+  filter(gender == "Women") %>% 
   ggplot(., aes(y=mean, x= age, color = pid3)) +
   geom_point() +
   geom_smooth(show.legend = FALSE) +
   theme_gg("Slabo 27px") +
   facet_wrap(~ issue, ncol =3) +
-  labs(title = "Support for Abortion Policies", subtitle = "Among Females", x = "", y = "", caption = "Data: CCES 2016") +
+  labs(title = "Support for Abortion Policies", subtitle = "Among Women", x = "", y = "", caption = "Data: CCES 2016") +
   scale_y_continuous(labels = percent) +
   scale_color_manual(values = c("dodgerblue3", "azure4", "firebrick3")) +
   scale_fill_manual(values = c("dodgerblue3", "azure4", "firebrick3")) +
@@ -146,7 +146,7 @@ graph <- cces16 %>%
   mutate(pid3 = as.numeric(pid3)) %>% 
   mutate(pid3 = car::recode(pid3, "1 = 'Democrat'; 2 = 'Republican'; 3 = 'Independent'; else = NA")) %>% 
   mutate(gender = as.numeric(gender)) %>% 
-  mutate(gender = car::recode(gender, "1= 'Male'; 2 = 'Female'")) %>% 
+  mutate(gender = car::recode(gender, "1= 'Men'; 2 = 'Women'")) %>% 
   filter(pid3 != "NA") 
 
 graph %>% 
@@ -164,6 +164,31 @@ graph %>%
   labs(y= "<-- More Pro-Choice:More Pro-Life -->", x = "", title = "Average of Five Abortion Questions", caption = "Data: CCES 2016") +
   ggsave("D://abortion40/images/abort_dist_lines.png")
   
+graph <- cces16 %>% 
+  group_by(pid3, gender) %>% 
+  ct(abort, wt = commonweight_vv) %>% 
+  filter(abort != "NA") %>% 
+  filter(pid3 <= 3) %>% 
+  ungroup(pid3, gender) %>% 
+  mutate(gender = car::recode(gender, "1 ='Men'; 2 = 'Women'")) %>% 
+  mutate(pid3 = car::recode(pid3, "1 = 'Democrat'; 2 = 'Republican'; 3 = 'Independent'"))
 
 
+graph %>% 
+  ggplot(., aes(x= abort, y = pct, fill = pid3)) +
+  geom_col(color = "black") +
+  theme_gg("Slabo 27px") +
+  facet_grid(pid3 ~ gender) +
+  scale_color_manual(values = c("dodgerblue3", "azure4", "firebrick3")) +
+  scale_fill_manual(values = c("dodgerblue3", "azure4", "firebrick3")) +
+  scale_y_continuous(labels = percent) +
+  geom_text(aes(y = pct + .035, label = paste0(pct*100, '%')), position = position_dodge(width = .9), size = 3, family = "font") +
+  labs(x= "<-- More Pro-Choice:More Pro-Life -->", y = "", title = "Distribution of Abortion Opinion", caption = "Data: CCES 2016") +
+  ggsave("D://abortion40/images/abort_dist_bars.png")
+
+
+cces16 %>% 
+  filter(age > 70) %>% 
+  group_by(pid3) %>% 
+  mean_ci(ab2)
 
