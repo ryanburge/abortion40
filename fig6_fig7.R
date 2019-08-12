@@ -44,31 +44,48 @@ gss <- read.fst("C://gss18b.fst") %>%
   mutate(ab_scale = ab1 + ab2 + ab3 + ab4 + ab5 + ab6) %>% 
   select(pid7, pid3, male, years, white, ab1, ab2, ab3, ab4, ab5, ab6, ab_scale, birthyr, year, educ, attend)
   
-  
- 
+#   
+#  
+# gss <- gss %>% 
+#   mutate(cohorts = car::recode(birthyr, "1883:1899 = '1883-1899';
+#                                       1900:1904 = '1900-1904';
+#                                       1905:1909 = '1905-1909';
+#                                       1910:1914 = '1910-1914';
+#                                       1915:1919 = '1915-1919';
+#                                       1920:1924 = '1920-1924';
+#                                       1925:1929 = '1925-1929';
+#                                       1930:1934 = '1930-1934';
+#                                       1935:1939 = '1935-1939';
+#                                       1940:1944 = '1940-1944';
+#                                       1945:1949 = '1945-1949';
+#                                       1950:1954 = '1950-1954';
+#                                       1955:1959 = '1955-1959';
+#                                       1960:1964 = '1960-1964';
+#                                       1965:1969 = '1965-1969';
+#                                       1970:1974 = '1970-1974';
+#                                       1975:1979 = '1975-1979';
+#                                       1980:1984 = '1980-1984';
+#                                       1985:1989 = '1985-1989';
+#                                       1990:1994 = '1990-1994';
+#                                       1995:2000 = '1995-2000'; else = NA")) %>% 
+#   mutate(cohorts = as.factor(cohorts))
+
+
+
 gss <- gss %>% 
-  mutate(cohorts = car::recode(birthyr, "1883:1899 = '1883-1899';
-                                      1900:1904 = '1900-1904';
-                                      1905:1909 = '1905-1909';
-                                      1910:1914 = '1910-1914';
-                                      1915:1919 = '1915-1919';
-                                      1920:1924 = '1920-1924';
-                                      1925:1929 = '1925-1929';
-                                      1930:1934 = '1930-1934';
-                                      1935:1939 = '1935-1939';
-                                      1940:1944 = '1940-1944';
-                                      1945:1949 = '1945-1949';
-                                      1950:1954 = '1950-1954';
-                                      1955:1959 = '1955-1959';
-                                      1960:1964 = '1960-1964';
-                                      1965:1969 = '1965-1969';
-                                      1970:1974 = '1970-1974';
-                                      1975:1979 = '1975-1979';
-                                      1980:1984 = '1980-1984';
-                                      1985:1989 = '1985-1989';
-                                      1990:1994 = '1990-1994';
-                                      1995:2000 = '1995-2000'; else = NA")) %>% 
+  mutate(cohorts = car::recode(birthyr,"1883:1915 = '1883-1915';
+                                        1916:1926 = '1916-1926';
+                                        1927:1942 = '1927-1942';
+                                        1943:1951 = '1943-1951';
+                                        1952:1961 = '1952-1961';
+                                        1962:1971 = '1962-1971';
+                                        1972:1981 = '1972-1981';
+                                        1982:1991 = '1982-1991';
+                                        1992:2000 = '1992-2000';
+                                      else = NA")) %>% 
   mutate(cohorts = as.factor(cohorts))
+
+
 
 co_fun <- function(df, coh, file){
   
@@ -93,6 +110,7 @@ co_fun <- function(df, coh, file){
     theme(plot.subtitle = element_text(size = 54)) +
     theme(legend.text = element_text(size = 54)) +
     theme(axis.text.x = element_text(size = 44)) +
+    theme(axis.text.y = element_text(size = 44)) +
     labs(y = "", x = "", title = "", subtitle = glue("{coh}"), caption = "") +
     ggsave(filename, type = "cairo-png", width = 10, height = 10)
   
@@ -117,30 +135,21 @@ co_fun <- function(df, coh, file){
     theme(plot.subtitle = element_text(size = 54)) +
     theme(legend.text = element_text(size = 54)) +
     theme(axis.text.x = element_text(size = 44)) +
+    theme(axis.text.y = element_text(size = 44)) +
     labs(y = "", x = "", title = "", subtitle = glue("{coh}"), caption = "") +
     ggsave(filename, type = "cairo-png", width = 10, height = 10)
 }
 
-gss %>% co_fun("1900-1904", "a")
-gss %>% co_fun("1905-1909", "b")
-gss %>% co_fun("1910-1914", "c")
-gss %>% co_fun("1915-1919", "d")
-gss %>% co_fun("1920-1924", "e")
-gss %>% co_fun("1925-1929", "f")
-gss %>% co_fun("1930-1934", "g")
-gss %>% co_fun("1935-1939", "h")
-gss %>% co_fun("1940-1944", "i")
-gss %>% co_fun("1945-1949", "j")
-gss %>% co_fun("1950-1954", "k")
-gss %>% co_fun("1955-1959", "l")
-gss %>% co_fun("1960-1964", "m")
-gss %>% co_fun("1965-1969", "n")
-gss %>% co_fun("1970-1974", "o")
-gss %>% co_fun("1975-1979", "p")
-gss %>% co_fun("1980-1984", "q")
-gss %>% co_fun("1985-1989", "r")
-gss %>% co_fun("1990-1994", "s")
-gss %>% co_fun("1995-2000", "t")
+gss %>% co_fun("1883-1915", "a")
+gss %>% co_fun("1916-1926", "b")
+gss %>% co_fun("1927-1942", "c")
+gss %>% co_fun("1943-1951", "d")
+gss %>% co_fun("1952-1961", "e")
+gss %>% co_fun("1962-1971", "f")
+gss %>% co_fun("1972-1981", "g")
+gss %>% co_fun("1982-1991", "h")
+gss %>% co_fun("1992-2000", "i")
+
 
 setwd("D://abortion40/interactions/rep/")
 
@@ -150,8 +159,10 @@ plots <- lapply(ll <- list.files(patt='.*[.]png'),function(x){
 })
 
 
-ggsave("multipage.pdf",  grid.arrange(grobs=plots, nrow=4, ncol=5, as.table = TRUE))
+# ggsave("rep_all.pdf",  grid.arrange(grobs=plots, nrow=3, ncol=3, as.table = TRUE))
 
+ggsave("Plots_Combined%03d.png",width=11.5, height=8, 
+       grid.arrange(grobs = plots, ncol=3, nrow =3,  as.table = TRUE, top = textGrob("Republicans", gp=gpar(fontsize = 15, font = 8))))
 
 
 setwd("D://abortion40/interactions/dem/")
@@ -162,5 +173,6 @@ plots <- lapply(ll <- list.files(patt='.*[.]png'),function(x){
 })
 
 
-ggsave("multipage.pdf",  grid.arrange(grobs=plots, nrow=4, ncol=5, as.table = TRUE))
-
+# ggsave("dem_all.pdf",  grid.arrange(grobs=plots, nrow=3, ncol=3, as.table = TRUE))
+ggsave("Plots_Combined%03d.png",width=11.5, height=8, 
+       grid.arrange(grobs = plots, ncol=3, nrow =3,  as.table = TRUE, top = textGrob("Democrats", gp=gpar(fontsize = 15, font = 8))))
